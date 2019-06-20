@@ -1,33 +1,47 @@
-/**
- * Some predefined delays (in milliseconds).
- */
-export enum Delays {
-  Short = 500,
-  Medium = 2000,
-  Long = 5000,
-}
+import * as express from 'express';
+import { Request, Response } from 'express';
+let bodyParser = require('body-parser');
+// import cookieParser from 'cookie-parser';
+// import expressSession from 'express-session';
+// import connectSessionSequelize from 'connect-session-sequelize';
+import {Sequelize} from 'sequelize-typescript';
+import { User } from './models/user';
+// connectSessionSequelize(expressSession.Store);
 
-/**
- * Returns a Promise<string> that resolves after given time.
- *
- * @param {string} name - A name.
- * @param {number=} [delay=Delays.Medium] - Number of milliseconds to delay resolution of the Promise.
- * @returns {Promise<string>}
- */
-function delayedHello(
-  name: string,
-  delay: number = Delays.Medium,
-): Promise<string> {
-  return new Promise((resolve: (value?: string) => void) =>
-    setTimeout(() => resolve(`Hello, ${name}`), delay),
-  );
-}
+const app = express();
+const port = 3000;
+app.locals.pretty = true;
 
-// Below are examples of using TSLint errors suppression
-// Here it is suppressing missing type definitions for greeter function
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'pug');
 
-// tslint:disable-next-line typedef
-export async function greeter(name) {
-  // tslint:disable-next-line no-unsafe-any no-return-await
-  return await delayedHello(name, Delays.Long);
-}
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cookieParser());
+
+
+let sequelize = new Sequelize({
+    database: 'some_db',
+    dialect: 'sqlite',
+    storage: 'database.sqlite'
+});
+
+sequelize.addModels([User]);
+
+sequelize.sync({ force: true }).then();
+
+app.get('/', (_: Request, res: Response) => {
+    const person = User.build({
+        name: 'boo',
+        username: 'bar',
+        password: 'baz'
+    } as User);
+    person.save().then();
+
+    res.send('Hello world!');
+});
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
