@@ -6,6 +6,7 @@ import { User } from './models/user';
 import * as bodyParser from 'body-parser';
 import * as expressSession from 'express-session';
 import * as connectSessionSequelize from 'connect-session-sequelize';
+import * as path from 'path';
 
 let sequelizeSessionStore = connectSessionSequelize(expressSession.Store);
 let sequelize = new Sequelize({
@@ -27,7 +28,7 @@ const app = express();
 const port = 3000;
 app.locals.pretty = true;
 
-app.set('views', 'views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // support parsing of application/json type post data
