@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        title
+            | Milwaukee Internationals
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+
+    body
+        nav.navbar.navbar-default
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/') Milwaukee Internationals
+                #myNavbar.collapse.navbar-collapse
+                    ul.nav.navbar-nav
+                        li
+                            a (href='/')
+                            | Home
+        .container
+            block content
