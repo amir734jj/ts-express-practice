@@ -37,6 +37,7 @@
         "sequelize": "^5.8.10",
         "sequelize-typescript": "^0.6.11",
         "sqlite": "^3.0.3",
-        "tslib": "~1.9.3"
+        "tslib": "~1.9.3",
+        "tsyringe": "^3.3.0"
     }
 }
