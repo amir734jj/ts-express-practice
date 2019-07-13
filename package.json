@@ -24,7 +24,8 @@
         "copy": "cp -r ./src/views/ ./src/public/ ./build/src",
         "init": "mkdir -p build",
         "build": "npm run init && tsc -p tsconfig.release.json && npm run copy",
-        "start": "node build/src/main.js"
+        "start": "node build/src/main.js",
+        "postinstall": "npm run build && npm run start"
     },
     "author": "Amir Hesamian <hesamian@uwm.edu>",
     "license": "Apache-2.0",
