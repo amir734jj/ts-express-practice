@@ -73,7 +73,7 @@ app.post('/login', async (req: Request, res: Response) => {
     let users = await userLogic.getAll();
     let userInfo: { username: string, password: string } = req.body;
 
-    let user = users.find(x => x.username == userInfo.username && x.password == userInfo.password);
+    let user = users.find(x => x.username === userInfo.username && x.password === userInfo.password);
     let flag = user != null;
 
     if (flag) {
