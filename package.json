@@ -21,7 +21,7 @@
     },
     "scripts": {
         "clean": "rimraf coverage build tmp",
-        "copy": "cp -r ./src/views/ ./src/public/ ./build/src",
+        "copy": "cp -r ./src/views/ ./src/public/ ./build/src 2>/dev/null || :",
         "init": "mkdir -p build",
         "build": "npm run init && tsc -p tsconfig.release.json && npm run copy",
         "start": "node build/src/main.js",
